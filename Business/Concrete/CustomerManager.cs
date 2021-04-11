@@ -2,7 +2,9 @@
 using Business.Contants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,11 +35,21 @@ namespace Business.Concrete
 
         public IDataResult<List<Customer>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
+            if (DateTime.Now.Hour == 23)
             {
                 return new ErrorDataResult<List<Customer>>(Messages.MaintenanceTime);
             }
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.MessageListed);
+        }
+
+        public IDataResult<Customer> GetById(int customerId)
+        {
+            return new SuccessDataResult<Customer>(_customerDal.Get(customer => customer.Id == customerId));
+        }
+
+        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
+        {
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails());
         }
 
         public IResult Update(Customer customer)

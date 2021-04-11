@@ -14,13 +14,7 @@ namespace DataAccess.Concrete.InMemory
         List<Car> _cars;
         public InMemoryCarDal()
         {
-            _cars = new List<Car> {
-                new Car{Id=1, BrandId=1, ColorId=1, DailyPrice=0, ModelYear="2008", Description="Ford"},
-                new Car{Id=2, BrandId=1, ColorId=2, DailyPrice=400, ModelYear="2010", Description="BMW"},
-                new Car{Id=3, BrandId=1, ColorId=2, DailyPrice=300, ModelYear="2007", Description="DB"},
-                new Car{Id=4, BrandId=3, ColorId=1, DailyPrice=200, ModelYear="2005", Description="Audi"},
-                new Car{Id=5, BrandId=2, ColorId=1, DailyPrice=250, ModelYear="2013", Description="Renault"}
-            };
+            
         }
 
         public void Add(Car car)
@@ -65,7 +59,7 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter = null)
         {
             throw new NotImplementedException();
         }

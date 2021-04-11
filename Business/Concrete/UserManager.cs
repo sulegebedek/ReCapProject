@@ -1,11 +1,11 @@
-﻿using Business.Abstract;
+﻿using System;
+using System.Collections.Generic;
+using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Contants;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete
 {
@@ -37,6 +37,21 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<User>>(Messages.MaintenanceTime);
             }
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.MessageListed);
+        }
+
+        public IDataResult<User> GetById(int id)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
+        }
+
+        public User GetByMail(string email)
+        {
+            return _userDal.Get(u => u.Email == email);
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
         }
 
         public IResult Update(User user)
